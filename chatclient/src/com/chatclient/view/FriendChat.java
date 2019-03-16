@@ -40,7 +40,7 @@ public class FriendChat extends JFrame implements ActionListener
        }
 	public static void main(String[] args) 
 	{
-	        
+	        //FriendChat friendChat=new FriendChat();
 	       }
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

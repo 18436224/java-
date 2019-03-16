@@ -82,14 +82,17 @@ public class ClientLogin extends JFrame implements ActionListener
 		jtp1.add(jp2,"QQ号码");jtp1.add(jp3,"手机号码");jtp1.add(jp4,"电子邮箱");
 		this.add(jtp1);
 		
-		jb1.addActionListener(this);
+		
 		
 		jb1=new JButton(new ImageIcon("images/denglu.gif"));
+		jb1.addActionListener(this);
 		jb2=new JButton(new ImageIcon("images/zhuce.gif"));
 		jb3=new JButton(new ImageIcon("images/quxiao.gif"));
 		jp1=new JPanel();
 		jp1.add(jb1);jp1.add(jb2);jp1.add(jb3);
 		this.add(jp1,"South");
+		
+		
 		
 		this.setSize(350,240);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -124,8 +124,11 @@ public class FriendList extends JFrame implements ActionListener,MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		
-		
+		 if(arg0.getClickCount()==2){
+			 JLabel jlbl=(JLabel)arg0.getSource();
+			 String recever=jlbl.getText();
+		  new FriendChat(this.userName,recever);
+		 }
 	}
 
 	@Override

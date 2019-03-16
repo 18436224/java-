@@ -3,10 +3,12 @@ package com.chatclient.view;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class ClientLogin extends JFrame
+public class ClientLogin extends JFrame implements ActionListener
 {
     JLabel jlbl1;
     
@@ -24,6 +26,7 @@ public class ClientLogin extends JFrame
     
     JButton jb1,jb2,jb3;
     JPanel jp1;
+    
 	public ClientLogin() 
 	{
 		jlbl1=new JLabel(new ImageIcon("images/tou.gif"));
@@ -75,10 +78,11 @@ public class ClientLogin extends JFrame
         jp4.add(jcb5); jp4.add(jcb6); jp4.add(jlblD);
 		
 		jtp1=new JTabbedPane();
+		
 		jtp1.add(jp2,"QQ号码");jtp1.add(jp3,"手机号码");jtp1.add(jp4,"电子邮箱");
 		this.add(jtp1);
 		
-		
+		jb1.addActionListener(this);
 		
 		jb1=new JButton(new ImageIcon("images/denglu.gif"));
 		jb2=new JButton(new ImageIcon("images/zhuce.gif"));
@@ -88,12 +92,23 @@ public class ClientLogin extends JFrame
 		this.add(jp1,"South");
 		
 		this.setSize(350,240);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 	
 	public static void main(String[] args) 
 	     {
 		ClientLogin clientLogin=new ClientLogin();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==jb1) {
+			String userName =jtf1.getText();
+			new FriendList(userName);
+		    this.dispose();
+		}
 	}
 
 }

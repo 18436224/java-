@@ -16,7 +16,8 @@ public class ServerReceiverThread extends Thread{
         	 ObjectInputStream ois;
         	 ObjectOutputStream oos;
         	 Message mess;
-        	 try{
+        	 while(true){
+        	     try{
         	 ois=new ObjectInputStream(s.getInputStream());
         	 mess=(Message)ois.readObject();
         	 System.out.println(mess.getSender()+"¶Ô"+mess.getReceiver()+"Ëµ:"+mess.getContent());
@@ -28,5 +29,6 @@ public class ServerReceiverThread extends Thread{
         	    }catch (IOException | ClassNotFoundException e){
         	    	e.printStackTrace();
         	    }
+        	 }    
          }
 }

@@ -15,8 +15,8 @@ public class FriendChat extends JFrame implements ActionListener
 	JTextField jtf;
 	JButton jb;
 	
-	public FriendChat(String sender,String receiver)
-       {
+	public FriendChat(String yonghu,String receiver)
+       {	
 	     jta=new JTextArea();
 	     jta.setEditable(false);
 	     jta.setForeground(Color.red);
@@ -34,7 +34,7 @@ public class FriendChat extends JFrame implements ActionListener
 	     
 	     
 	     this.setSize(350,240);
-	     this.setTitle(sender+"正在和"+receiver+"聊天");
+	     this.setTitle(yonghu+"正在和"+receiver+"聊天");
          this.setLocationRelativeTo(null);
          this.setVisible(true);
        }

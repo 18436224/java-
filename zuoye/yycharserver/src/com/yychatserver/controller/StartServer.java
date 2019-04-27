@@ -5,6 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -37,13 +42,37 @@ public class StartServer {
                 	    passWord=user.getPassWord();	
                 		System.out.println(userName);
                 		System.out.println(passWord);
+                		//1.加载驱动程序
+                		Class.forName("com.mysql.jdbc.Driver");
                 		
+                		//2.获取连接对象
+                		String url="jdbc:mysql://127.0.0.1:3306/yychat?useUnicode=true&characterEncoding=UTF-8";
+                		String dbuser="root";
+                		String dbpass="";                		
+						Connection conn=DriverManager.getConnection(url,dbuser,dbpass);
+						
+						//3.创建对象，执行SQL语句
+						String user_Login_Sql="select * from user where username=? and password=?";
+						PreparedStatement ptmt=conn.prepareStatement(user_Login_Sql);
+						ptmt.setString(1, userName);
+						ptmt.setString(2, passWord);
+						
+						//4.执行查询，返回结果值
+						ResultSet rs=ptmt.executeQuery();
+                		
+						//5.判断是否登陆
+						boolean loginSuccess=rs.next();
+						System.out.println("loginSuccess为:"+loginSuccess);
                 		//实现密码验证功能
-                		
+						
+
+    //6、在yychatserver项目中添加数据库驱动：Build Path->Add External JARs->mysql-connector-java-5.1.6-bin
+		//创建不了				
                 		mess=new Message();//验证操作
             			mess.setSender("Server");
             			mess.setReceiver(userName);
-                		if(user.getPassWord().equals("123456")){//对象比较                		
+                		//if(user.getPassWord().equals("123456")){//对象比较   
+            			if(loginSuccess){
                 			mess.setMessageType(Message.message_LoginSuccess);//"1"为验证通过
                 			
                 		}else{
@@ -53,7 +82,8 @@ public class StartServer {
                 		//oos.writeObject(mess);
                 		sendMessage(s,mess);
                 		//
-                		if(user.getPassWord().equals("123456")){
+                		//if(user.getPassWord().equals("123456")){
+                		if(loginSuccess){
                 			mess.setMessageType(Message.message_Newpy);
                 			mess.setSender("Server");
                 			mess.setContent(userName);
@@ -76,7 +106,10 @@ public class StartServer {
                 		e.printStackTrace();//处理异常
                 	}catch (ClassNotFoundException e){
                 		e.printStackTrace();
-                	}
+                	} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                 	
                 }
                 private void sendMessage(Socket s,Message mess) throws IOException {			
